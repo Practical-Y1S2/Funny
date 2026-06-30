@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumora | Premium Online Store</title>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+
+  /* ============ RESET & BASE ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1455d6;
+    --blue-dark: #0b3a96;
+    --blue-light: #eaf1ff;
+    --black: #14181f;
+    --gray: #6b7280;
+    --gray-light: #f4f6fa;
+    --white: #ffffff;
+    --radius: 14px;
+    --shadow: 0 6px 20px rgba(20, 24, 31, 0.08);
+    --shadow-hover: 0 14px 30px rgba(20, 85, 214, 0.18);
+  }
+
+  body {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--black);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  img { max-width: 100%; display: block; }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: 0 8px 20px rgba(20, 85, 214, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 26px rgba(20, 85, 214, 0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+  }
+  .btn-outline:hover {
+    background: var(--white);
+    color: var(--blue-dark);
+    transform: translateY(-3px);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .section-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  .section-title p {
+    color: var(--gray);
+    font-size: 16px;
+  }
+
+  /* ============ HEADER ============ */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: var(--white);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo i { color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .nav-links a {
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%; height: 2px;
+    background: var(--blue);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: var(--gray-light);
+    border-radius: var(--radius);
+    padding: 8px 14px;
+    width: 220px;
+  }
+  .search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 8px;
+    width: 100%;
+    font-size: 14px;
+  }
+  .search-box i { color: var(--gray); }
+
+  .icon-btn {
+    font-size: 19px;
+    position: relative;
+    color: var(--black);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .icon-btn:hover { color: var(--blue); transform: translateY(-2px); }
+
+  .cart-count {
+    position: absolute;
+    top: -8px; right: -10px;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 18px; height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-btn {
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  .login-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+  }
+
+  /* ============ HERO SECTION ============ */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--white) 60%);
+    padding: 80px 20px;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-text { flex: 1; min-width: 280px; }
+  .hero-text span.tag {
+    display: inline-block;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero-text h1 {
+    font-size: 46px;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    color: var(--black);
+  }
+  .hero-text h1 span { color: var(--blue); }
+  .hero-text p {
+    color: var(--gray);
+    font-size: 17px;
+    margin-bottom: 30px;
+    max-width: 460px;
+  }
+  .hero-image {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-image img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* ============ CATEGORIES ============ */
+  .categories {
+    padding: 80px 20px;
+  }
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .category-card {
+    background: var(--gray-light);
+    border-radius: var(--radius);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+    cursor: pointer;
+  }
+  .category-card:hover {
+    background: var(--blue);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+  }
+  .category-card i {
+    font-size: 36px;
+    color: var(--blue);
+    margin-bottom: 16px;
+    transition: color 0.3s ease;
+  }
+  .category-card:hover i { color: var(--white); }
+  .category-card h3 {
+    font-size: 17px;
+    transition: color 0.3s ease;
+  }
+  .category-card:hover h3 { color: var(--white); }
+
+  /* ============ FEATURED PRODUCTS ============ */
+  .products {
+    padding: 80px 20px;
+    background: var(--gray-light);
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+  .product-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.35s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+  }
+  .product-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .product-img img {
+    width: 100%;
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover .product-img img {
+    transform: scale(1.06);
+  }
+  .product-info {
+    padding: 18px;
+  }
+  .product-info h4 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .product-info p.desc {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 10px;
+  }
+  .rating {
+    color: #f5b301;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .rating span { color: var(--gray); margin-left: 4px; }
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .old-price {
+    font-size: 13px;
+    color: var(--gray);
+    text-decoration: line-through;
+    margin-left: 6px;
+  }
+  .add-cart-btn {
+    width: 100%;
+    background: var(--black);
+    color: var(--white);
+    padding: 11px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .add-cart-btn:hover {
+    background: var(--blue);
+  }
+
+  /* ============ SPECIAL OFFER BANNER ============ */
+  .offer {
+    background: linear-gradient(120deg, var(--black), var(--blue-dark));
+    color: var(--white);
+    padding: 70px 20px;
+    text-align: center;
+  }
+  .offer h2 {
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+  .offer p {
+    font-size: 17px;
+    color: #d6e2ff;
+    margin-bottom: 30px;
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testimonials {
+    padding: 80px 20px;
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  .testimonial-card {
+    background: var(--gray-light);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+  .testimonial-card .stars {
+    color: #f5b301;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+  .testimonial-card p.quote {
+    font-size: 15px;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .reviewer img {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .reviewer h5 { font-size: 14px; }
+  .reviewer span { font-size: 12px; color: var(--gray); }
+
+  /* ============ NEWSLETTER ============ */
+  .newsletter {
+    background: var(--blue-light);
+    padding: 70px 20px;
+    text-align: center;
+  }
+  .newsletter h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .newsletter p {
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .newsletter-form input {
+    padding: 14px 20px;
+    border-radius: var(--radius);
+    border: 1px solid #d6dde8;
+    width: 320px;
+    font-size: 14px;
+    outline: none;
+  }
+  .newsletter-form input:focus {
+    border-color: var(--blue);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--black);
+    color: #c7ccd6;
+    padding: 60px 20px 20px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+  .footer-grid h3, .footer-grid h4 {
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-grid p { font-size: 14px; margin-bottom: 10px; }
+  .footer-grid ul li { margin-bottom: 10px; }
+  .footer-grid ul li a {
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  .footer-grid ul li a:hover { color: var(--blue); }
+
+  .social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .social-icons a {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .social-icons a:hover {
+    background: var(--blue);
+    transform: translateY(-3px);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+    color: #8b919e;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 992px) {
+    .nav-links { display: none; }
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .search-box { width: 160px; }
+  }
+
+  @media (max-width: 576px) {
+    .hero-text h1 { font-size: 32px; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .product-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .search-box { display: none; }
+    .newsletter-form input { width: 100%; }
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <div class="topbar">
+      <a href="#" class="logo"><i class="fa-solid fa-bag-shopping"></i> Lumora</a>
+
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search products...">
+        </div>
+        <a href="#" class="icon-btn">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count">3</span>
+        </a>
+        <a href="#" class="login-btn">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="tag">NEW SEASON ARRIVALS</span>
+        <h1>Shop The Latest <span>Trends</span> With Confidence</h1>
+        <p>Premium quality electronics, fashion, shoes and accessories — curated for a lifestyle that never settles for less.</p>
+        <a href="#shop" class="btn btn-primary">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/420x420" alt="Hero Banner">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CATEGORIES ===================== -->
+  <section class="categories" id="categories">
+    <div class="container">
+      <div class="section-title">
+        <h2>Shop By Category</h2>
+        <p>Find exactly what you're looking for</p>
+      </div>
+      <div class="category-grid">
+        <div class="category-card">
+          <i class="fa-solid fa-laptop"></i>
+          <h3>Electronics</h3>
+        </div>
+        <div class="category-card">
+          <i class="fa-solid fa-shirt"></i>
+          <h3>Fashion</h3>
+        </div>
+        <div class="category-card">
+          <i class="fa-solid fa-shoe-prints"></i>
+          <h3>Shoes</h3>
+        </div>
+        <div class="category-card">
+          <i class="fa-solid fa-gem"></i>
+          <h3>Accessories</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED PRODUCTS ===================== -->
+  <section class="products" id="shop">
+    <div class="container">
+      <div class="section-title">
+        <h2>Featured Products</h2>
+        <p>Hand-picked items just for you</p>
+      </div>
+      <div class="product-grid">
+
+        <!-- Product Card 1 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Wireless Headphones</h4>
+            <p class="desc">Noise-cancelling, 30hr battery</p>
+            <div class="rating">★★★★☆ <span>(120)</span></div>
+            <div class="price-row">
+              <div><span class="price">$89</span><span class="old-price">$120</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Classic Leather Jacket</h4>
+            <p class="desc">Premium genuine leather</p>
+            <div class="rating">★★★★★ <span>(98)</span></div>
+            <div class="price-row">
+              <div><span class="price">$149</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Running Sneakers</h4>
+            <p class="desc">Lightweight & breathable</p>
+            <div class="rating">★★★★☆ <span>(76)</span></div>
+            <div class="price-row">
+              <div><span class="price">$72</span><span class="old-price">$95</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Smart Watch Pro</h4>
+            <p class="desc">Fitness tracking & calls</p>
+            <div class="rating">★★★★★ <span>(204)</span></div>
+            <div class="price-row">
+              <div><span class="price">$199</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 5 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Designer Sunglasses</h4>
+            <p class="desc">UV400 protection</p>
+            <div class="rating">★★★★☆ <span>(54)</span></div>
+            <div class="price-row">
+              <div><span class="price">$59</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 6 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Minimalist Backpack</h4>
+            <p class="desc">Water-resistant fabric</p>
+            <div class="rating">★★★★☆ <span>(132)</span></div>
+            <div class="price-row">
+              <div><span class="price">$84</span><span class="old-price">$110</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 7 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Slim Fit Shirt</h4>
+            <p class="desc">100% cotton, breathable</p>
+            <div class="rating">★★★★★ <span>(67)</span></div>
+            <div class="price-row">
+              <div><span class="price">$45</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product Card 8 -->
+        <div class="product-card">
+          <div class="product-img"><img src="https://via.placeholder.com/300x300" alt="Product"></div>
+          <div class="product-info">
+            <h4>Leather Wallet</h4>
+            <p class="desc">Slim & durable design</p>
+            <div class="rating">★★★★☆ <span>(89)</span></div>
+            <div class="price-row">
+              <div><span class="price">$39</span></div>
+            </div>
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SPECIAL OFFER BANNER ===================== -->
+  <section class="offer">
+    <h2>Up To 50% Off — Limited Time Only</h2>
+    <p>Grab your favorite items before the deal ends. Free shipping on all orders over $50.</p>
+    <a href="#shop" class="btn btn-outline">Grab The Deal</a>
+  </section>
+
+  <!-- ===================== CUSTOMER REVIEWS ===================== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p>Real feedback from real shoppers</p>
+      </div>
+      <div class="testimonial-grid">
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Fast shipping and the product quality exceeded my expectations. Will definitely shop again!"</p>
+          <div class="reviewer">
+            <img src="https://via.placeholder.com/46x46" alt="Customer">
+            <div>
+              <h5>Sarah Johnson</h5>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Amazing customer service and the prices are unbeatable for this quality. Highly recommend."</p>
+          <div class="reviewer">
+            <img src="https://via.placeholder.com/46x46" alt="Customer">
+            <div>
+              <h5>Michael Lee</h5>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">★★★★☆</div>
+          <p class="quote">"Love the website design and how easy it is to find what I need. My new favorite store."</p>
+          <div class="reviewer">
+            <img src="https://via.placeholder.com/46x46" alt="Customer">
+            <div>
+              <h5>Emily Carter</h5>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <section class="newsletter">
+    <h2>Subscribe To Our Newsletter</h2>
+    <p>Get exclusive deals and updates delivered straight to your inbox.</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="contact">
+    <div class="footer-grid">
+
+      <div>
+        <h3>Lumora</h3>
+        <p>Your trusted destination for premium electronics, fashion, shoes and accessories since 2018.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#about">About Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> 123 Market Street, NY</p>
+        <p><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</p>
+        <p><i class="fa-solid fa-envelope"></i> support@lumora.com</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Lumora. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
